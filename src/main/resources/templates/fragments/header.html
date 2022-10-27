@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/headerstyle.css}"/>-->
+</head>
+<body>
+<!--<table id="nav-menu" width="100%">
+    <tr>
+
+        <td align="center">
+            <table>
+                <tr>
+                    <td>Menu -></td>
+                    <td><a th:href="@{/}">Home</a></td>
+                    <td><a th:href="@{/products}">Products</a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/bucket}">Bucket</a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/orders/order-history}">My Orders</a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/users/profile}">Profile</a></td>
+                </tr>
+            </table>
+        </td>
+
+        <td align="right">
+            <div sec:authorize="isAuthenticated()">
+                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                    Hello, <a th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+                </div>
+                <div sec:authorize="hasAuthority('CLIENT')">
+                    Hello, <a th:href="@{/users/profile}"><span sec:authentication="principal.username">Bill</span></a>
+                </div>
+                <div>
+                    <a th:href="@{/logout}">Logout</a>
+                </div>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()">
+                <div>
+                    Hello, Unknown. Please <a th:href="@{/login}">Login</a>
+                    or <a th:href="@{/users/new}">Register</a>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+</table>-->
+
+<header th:fragment="header">
+
+    <div class="logo_nav">
+        <div class="logo">Clothes👘</div>
+        <nav>
+            <a href="/" class="nav_item">Home</a>
+            <a href="/products" class="nav_item">Products</a>
+            <a sec:authorize="isAuthenticated()"  href="/orders/order-history" class="nav_item">My Orders</a>
+            <a sec:authorize="isAuthenticated()"  href="/users/profile" class="nav_item">Profile</a>
+        </nav>
+    </div>
+
+    <form class="search_bar" th:action="@{/products/find-by-word(word)}" method="get">
+        <input type="search" placeholder="Search🔎" name="word">
+        <button type="button">Search</button>
+    </form>
+
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/bucket}">
+            <button type="button" class="basket">
+                🛒
+            </button>
+        </a>
+    </div>
+
+    <div sec:authorize="!isAuthenticated()" style="color: white; padding: 0 20px ">
+        <div>
+            Hello, Unknown. Please <a style="color: white" th:href="@{/login}">Login</a>
+            or <a style="color: white" th:href="@{/users/new}">Register</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" style="color: white; padding: 0 20px">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            Hello, <a style="color: white" th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div sec:authorize="hasAuthority('CLIENT')">
+            Hello, <a style="color: white" th:href="@{/users/profile}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div>
+            <a style="color: white" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>

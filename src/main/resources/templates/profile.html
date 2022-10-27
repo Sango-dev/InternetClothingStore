@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.w3.org/1999/xhtml"
+        xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profilestyle.css}"/>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo_nav">
+        <div class="logo">Clothes👘</div>
+
+    </div>
+    <nav>
+        <a href="/" class="nav_item">Home</a>
+        <a href="/products" class="nav_item">Products</a>
+        <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
+        <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
+    </nav>
+
+    <a th:href="@{/bucket}" class="basket">
+        🛒
+    </a>
+
+    <div sec:authorize="!isAuthenticated()" style="color: white; padding: 0 20px ">
+        <div>
+            Hello, Unknown. Please <a style="color: white" th:href="@{/login}">Login</a>
+            or <a style="color: white" th:href="@{/users/new}">Register</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" style="color: white; padding: 0 20px">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            Hello, <a style="color: white" th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div sec:authorize="hasAuthority('CLIENT')">
+            Hello, <span sec:authentication="principal.username">Bill</span>
+        </div>
+        <div>
+            <a style="color: white" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+
+<div class="box">
+    <div class="card">
+        <div class="avatar">
+            <img alt="avatar" src="https://i.pravatar.cc/400"/>
+        </div>
+        <div class="card_body">
+            <div class="field">
+                <div class="field_name">Nickname:</div>
+                <div class="field_value" th:text="${user.nickName}">nickName</div>
+            </div>
+            <div class="field">
+                <div class="field_name">First name:</div>
+                <div class="field_value" th:text="${user.firstName}">
+                    first name
+                </div>
+            </div>
+            <div class="field">
+                <div class="field_name">Last name:</div>
+                <div class="field_value" th:text="${user.lastName}">last name</div>
+            </div>
+            <div class="field">
+                <div class="field_name">Email:</div>
+                <div class="field_value" th:text="${user.email}">email</div>
+            </div>
+        </div>
+        <div th:if="${errorFlag}" style="background-color: whitesmoke; align-content: center">
+            <p th:text="${errorMessage}"
+               style="color: red; font-weight: bold; font-size: 25px; background-color: whitesmoke; margin: 0 20px"></p>
+        </div>
+        <div class="card_form">
+            <form th:object="${user}" th:action="@{/users/profile}" method="post">
+                <div style="display: none">
+                    <input type="hidden" th:field="*{id}" title="id"/>
+                    <input type="hidden" th:field="*{nickName}" title="nickName"/>
+                    <input type="hidden" th:field="*{firstName}" title="firstName"/>
+                    <input type="hidden" th:field="*{lastName}" title="lastName"/>
+                    <input type="hidden" th:field="*{email}" title="email"/>
+                    <input type="hidden" th:field="*{role}" title="role"/>
+                </div>
+                <button class="btn_password" type="button">Change password</button>
+                <div class="change_password">
+                    <input
+                            type="password"
+                            th:field="*{password}"
+                            placeholder="Password"
+                            required="true"
+                    />
+                    <br/>
+                    <input
+                            type="password"
+                            th:field="*{matchingPassword}"
+                            placeholder="Matching Password"
+                            required="true"
+                    />
+                    <br/>
+                    <input type="submit" th:value="Save"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const btn = document.querySelector(".btn_password");
+    const box = document.querySelector(".change_password");
+
+    btn.addEventListener('click', () => {
+        box.style.display = box.style.display === "flex" ? "none" : "flex";
+        btn.innerText = box.style.display === "flex" ? "Hide" : "Change password";
+    })
+</script>
+</body>
+</html>
+

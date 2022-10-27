@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<form th:object="${product}" method="post">
+    <table border="1">
+        <tr>
+            <td>Title</td>
+            <td><input type="text" th:field="*{title}" required="true"></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><input type="text" th:field="*{description}" required="true"></td>
+        </tr>
+        <tr>
+            <td>IMG URL:</td>
+            <td><input type="text" th:field="*{pictureCode}" required="true"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input type="text" th:field="*{price}" required="true"></td>
+        </tr>
+    </table>
+    <label th:text="Categories"></label>
+    <select th:field="*{category.id}">
+        <option th:each="cat : ${categories}" th:value="${cat.id}"
+                th:text="${cat.title}"></option>
+    </select>
+    <br>
+    <label th:text="Brands"></label>
+    <select th:field="*{brand.id}">
+        <option th:each="br : ${brands}" th:value="${br.id}"
+                th:text="${br.title}"></option>
+    </select>
+    <input th:if="${method} == 'edit-product'" type="submit" name="submit"
+           th:action="@{/products/{id}/edit-product}" th:value="Update"/>
+    <input th:if="${method} == 'add-product'" type="submit" name="submit"
+           th:action="@{/products/add}" th:value="Add"/>
+    <input th:if="${method} == 'edit-product'" type="submit" name="cancellation" th:action="@{/products/{id}/edit-product}"
+           th:value="Cancel"/>
+    <input th:if="${method} == 'add-product'" type="submit" name="cancellation" th:action="@{/products/add}"
+           th:value="Cancel"/>
+    <div th:if="${method} == 'edit-product'">
+        <img th:src="@{${product.pictureCode}}">
+    </div>
+
+</form>
+</body>
+</html>

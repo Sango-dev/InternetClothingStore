@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.w3.org/1999/xhtml"
+        xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8" />
+    <title>Clothing Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            margin: 0 0 20px 0;
+            background: blue;
+        }
+
+        nav {
+            background: none;
+            margin: 30px;
+        }
+
+        .basket {
+            font-size: 30px;
+            background: none;
+            border: none;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+
+        .nav_item {
+            background: none;
+            color: white;
+            padding: 20px;
+            border: solid 2px white;
+            font-size: 20px;
+        }
+
+        .nav_item:hover {
+            font-weight: bold;
+        }
+
+        .nav_item:first-child {
+            border: solid 2px white;
+        }
+
+        .nav_item:last-child {
+
+            border-top-right-radius: 10px;
+        }
+
+        .logo {
+            font-size: 30px;
+            cursor: pointer;
+            margin: 10px 20px;
+            color: white;
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo_nav">
+        <div class="logo">Clothes👘</div>
+
+    </div>
+    <nav>
+        <a href="/" class="nav_item">Home</a>
+        <a href="/products" class="nav_item">Products</a>
+        <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
+        <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
+    </nav>
+
+    <a th:href="@{/bucket}" class="basket">
+        🛒
+    </a>
+
+    <div sec:authorize="!isAuthenticated()" style="color: white; padding: 0 20px ">
+        <div>
+            Hello, Unknown. Please <a style="color: white" th:href="@{/login}">Login</a>
+            or <a style="color: white" th:href="@{/users/new}">Register</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" style="color: white; padding: 0 20px">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            Hello, <a style="color: white" th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div sec:authorize="hasAuthority('CLIENT')">
+            Hello, <span sec:authentication="principal.username">Bill</span>
+        </div>
+        <div>
+            <a style="color: white" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img
+                    src="https://static.staff-clothes.com/uploads/media/default/0002/70/61c8caa3d6044fb2b1ebac8e0d95333a.jpeg"
+                    alt="Los Angeles"
+            />
+        </div>
+        <div class="carousel-item">
+            <img
+                    src="https://static.staff-clothes.com/uploads/media/default/0002/63/07676d290abf4f84af8477dfd6a2cb4e.jpeg"
+                    alt="Chicago"
+            />
+        </div>
+        <div class="carousel-item">
+            <img
+                    src="https://static.staff-clothes.com/uploads/media/default/0002/70/852ed62aa7584f0ab805e0742b337215.jpeg"
+                    alt="New York"
+            />
+        </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+</div>
+<footer class="page-footer font-small mdb-color mt-5 lighten-3 pt-4">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-2 col-md-12 mb-4">
+
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://static.staff-clothes.com/media/cache/image_product_desktop_catalog/image_product/0002/63/8f151d429d904ffb92638635c4f0f1a2.jpeg" class="img-fluid"
+                         style="width: 120px; height:160px"
+                         alt="">
+                    <a href="">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://static.staff-clothes.com/media/cache/image_product_desktop_catalog/image_product/0002/68/0a540c9768874fc89ed0328551159176.jpeg" class="img-fluid"
+                         style="width: 120px; height:160px"
+                         alt="">
+                    <a href="">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4">
+
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://static.staff-clothes.com/media/cache/image_product_desktop_catalog/image_product/0002/70/e072b023bc094f4f96ce9e05aef2ce47.jpeg" class="img-fluid"
+                         style="width: 120px; height:160px"
+                         alt="">
+                    <a href="">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4">
+
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://static.staff-clothes.com/media/cache/image_product_desktop_catalog/image_product/0002/70/e22208db2d284f19a53fd31e2fb15cbf.jpeg" class="img-fluid"
+                         style="width: 120px; height:160px"
+                         alt="">
+                    <a href="">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4">
+
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://static.staff-clothes.com/media/cache/image_product_desktop_catalog/image_product/0002/58/d0bd7051330c4f3097cfb69a2175e07c.jpeg" class="img-fluid"
+                         style="width: 120px; height:160px"
+                         alt="">
+                    <a href="">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://static.staff-clothes.com/media/cache/image_product_desktop_catalog/image_product/0002/48/f7308719806d4fcb8eaa6ad138f1fd7f.jpeg" class="img-fluid"
+                         style="width: 120px; height:160px"
+                         alt="">
+                    <a href="">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="footer-copyright text-center py-3">© 2022 GIT:
+        <a href="/"> Your git</a>
+    </div>
+
+</footer>
+
+
+</body>
+</html>

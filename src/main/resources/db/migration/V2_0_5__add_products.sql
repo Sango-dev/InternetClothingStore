@@ -1,0 +1,18 @@
+INSERT INTO products(id, title, price, description, picture_code, brand_id, category_id, code, available)
+VALUES('4cf1c984-4c97-11ed-bdc3-0242ac120002', 'Parka', 2155, 'Carson padded parka coat', '/images/products/coat1.png', '3cf541e4-4c94-11ed-bdc3-0242ac120002',  '70953b34-4c95-11ed-bdc3-0242ac120002', 'coat1', true),
+      ('731a99ea-4d52-11ed-bdc3-0242ac120002', 'Duffle coat', 5734, 'long-sleeved duffle coat', '/images/products/coat2.png', '3cf53f96-4c94-11ed-bdc3-0242ac120002',  '70953b34-4c95-11ed-bdc3-0242ac120002', 'coat2', true),
+      ('2449080e-4d54-11ed-bdc3-0242ac120002', 'Tapered pants', 1407, 'wool tapered trousers', '/images/products/pants1.png', '3cf54572-4c94-11ed-bdc3-0242ac120002',  '70953170-4c95-11ed-bdc3-0242ac120002', 'pants1', true),
+      ('dc65571c-4d68-11ed-bdc3-0242ac120002', 'Chinos', 396, 'straight-leg chino trousers', '/images/products/pants2.png', '3cf53abe-4c94-11ed-bdc3-0242ac120002',  '70953170-4c95-11ed-bdc3-0242ac120002', 'pants2', true),
+      ('2577cbc8-4d6a-11ed-bdc3-0242ac120002', 'T-shirt', 464, 'splatter-effect logo-print T-shirt', '/images/products/tshirt1.png', '3cf54572-4c94-11ed-bdc3-0242ac120002',  '70953454-4c95-11ed-bdc3-0242ac120002', 'tshirt1', true),
+      ('dcd08e40-4d6a-11ed-bdc3-0242ac120002', 'T-shirt', 1265, 'logo-print long-sleeved T-shirt', '/images/products/tshirt2.png', '3cf548f6-4c94-11ed-bdc3-0242ac120002',  '70953454-4c95-11ed-bdc3-0242ac120002', 'tshirt2', true),
+      ('f098bf8c-4d6b-11ed-bdc3-0242ac120002', 'Hoodie', 513, 'logo-embroidered hoodie', '/images/products/hoodie1.png', '3cf54a18-4c94-11ed-bdc3-0242ac120002',  '70953c9c-4c95-11ed-bdc3-0242ac120002', 'hoodie1', true),
+      ('f415a80a-4de3-11ed-bdc3-0242ac120002', 'Hoodie', 790, 'logo-print cotton hoodie', '/images/products/hoodie2.png', '3cf548f6-4c94-11ed-bdc3-0242ac120002',  '70953c9c-4c95-11ed-bdc3-0242ac120002', 'hoodie2', true),
+      ('0f2adc36-4de5-11ed-bdc3-0242ac120002', 'Socks', 25, 'Peace x Love 2-pack socks', '/images/products/socks1.png', '3cf547de-4c94-11ed-bdc3-0242ac120002',  '70953ddc-4c95-11ed-bdc3-0242ac120002', 'socks1', true),
+      ('07e29a94-4de6-11ed-bdc3-0242ac120002', 'Socks', 120, 'embroidered monogram ribbed socks', '/images/products/socks2.png', '3cf53e56-4c94-11ed-bdc3-0242ac120002',  '70953ddc-4c95-11ed-bdc3-0242ac120002', 'socks2', true),
+      ('83c29d44-4de6-11ed-bdc3-0242ac120002', 'Cap', 460, 'GG canvas baseball cap', '/images/products/cap1.png', '3cf540d6-4c94-11ed-bdc3-0242ac120002',  '70954020-4c95-11ed-bdc3-0242ac120002', 'cap1', true),
+      ('2a2e6320-4de7-11ed-bdc3-0242ac120002', 'Cap', 145, 'logo-patch cap', '/images/products/cap2.png', '3cf541e4-4c94-11ed-bdc3-0242ac120002',  '70954020-4c95-11ed-bdc3-0242ac120002', 'cap2', true),
+      ('db3ee79c-4de8-11ed-bdc3-0242ac120002', 'Sweatshirt', 618, 'logo-print crew neck sweatshirt', '/images/products/sweatshirt1.png', '3cf546c6-4c94-11ed-bdc3-0242ac120002',  '709541a6-4c95-11ed-bdc3-0242ac120002', 'sweatshirt1', true),
+      ('36f9f658-4de9-11ed-bdc3-0242ac120002', 'Sweatshirt', 795, 'logo-print cotton sweatshirt', '/images/products/sweatshirt2.png', '3cf53abe-4c94-11ed-bdc3-0242ac120002',  '709541a6-4c95-11ed-bdc3-0242ac120002', 'sweatshirt2', true),
+      ('261170b8-4dea-11ed-bdc3-0242ac120002', 'Bermuda shorts', 850, 'AD Banners pajama-style shorts', '/images/products/shorts2.png', '3cf53abe-4c94-11ed-bdc3-0242ac120002',  '7095435e-4c95-11ed-bdc3-0242ac120002', 'shorts2', true),
+      ('4917f176-4deb-11ed-bdc3-0242ac120002', 'Track shorts', 65, 'run shorts', '/images/products/shorts1.png', '3cf54a18-4c94-11ed-bdc3-0242ac120002',  '7095435e-4c95-11ed-bdc3-0242ac120002', 'shorts1', true);
+

@@ -1,0 +1,26 @@
+.box{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+}
+.content p {
+    font-size: 40px;
+}
+.content a{
+    text-decoration: none;
+    align-self: end;
+    border: 3px solid blue;
+    padding: 10px;
+    border-radius: 5px;
+}
+.content a:hover{
+    box-shadow: 3px 2px 3px lightblue;
+    color: rgb(76, 76, 206);
+    border: 3px solid rgb(76, 76, 206);
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/orderdetailstyle.css}"/>
+</head>
+
+<body>
+<header>
+
+    <div class="logo_nav">
+        <div class="logo">Clothes👘</div>
+
+    </div>
+    <nav>
+        <a href="/" class="nav_item">Home</a>
+        <a href="/products" class="nav_item">Products</a>
+        <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
+        <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
+    </nav>
+
+    <a th:href="@{/bucket}" class="basket">
+        🛒
+    </a>
+
+    <div sec:authorize="!isAuthenticated()" style="color: white; padding: 0 20px ">
+        <div>
+            Hello, Unknown. Please <a style="color: white" th:href="@{/login}">Login</a>
+            or <a style="color: white" th:href="@{/users/new}">Register</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" style="color: white; padding: 0 20px">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            Hello, <a style="color: white" th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div sec:authorize="hasAuthority('CLIENT')">
+            Hello, <span sec:authentication="principal.username">Bill</span>
+        </div>
+        <div>
+            <a style="color: white" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+
+<div class="box">
+    <form th:action="@{/orders/make-order}" th:object="${order}" method="post">
+        <div style="display: none;">
+            <input type="hidden" th:field="*{id}" title="id"/>
+            <input type="hidden" th:field="*{sum}" title="sum"/>
+            <input type="hidden" th:field="*{status}" title="status"/>
+            <input type="hidden" th:field="*{user.id}" title="user.id"/>
+            <input type="hidden" th:field="*{created}" title="created"/>
+            <input type="hidden" th:field="*{updated}" title="updated"/>
+        </div>
+
+        <input type="text" th:field="*{recipient}" placeholder="Recipient" required="true"/>
+        <input type="text" th:field="*{address}" placeholder="Address" required="true"/>
+        <input type="tel" th:field="*{phone}" placeholder="Phone" required="true" pattern="[0]{1}[0-9]{9}"/>
+
+        <button type="submit">Ok</button>
+    </form>
+
+    <table class="order">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail : ${order.details}">
+            <td> <img th:src="@{${detail.product.pictureCode}}"></td>
+            <td th:text="${detail.product.title}">Cap</td>
+            <td th:text="${detail.product.description}">good cap</td>
+            <td th:text="${detail.amount}">2</td>
+            <td th:text="${(detail.price * detail.amount) + ' ' + '$'}">11.0</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4" style="padding: 0 0 0 50px;">
+                All sum:
+            </td>
+            <td align="center">
+                <b th:text="${order.sum  + ' ' + '$'}">1000</b>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+</body>
+
+</html>

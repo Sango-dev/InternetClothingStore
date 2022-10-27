@@ -1,0 +1,10 @@
+INSERT INTO brands(id, title) VALUES('3cf53abe-4c94-11ed-bdc3-0242ac120002', 'Balenciaga');
+INSERT INTO brands(id, title) VALUES('3cf53e56-4c94-11ed-bdc3-0242ac120002', 'Adidas');
+INSERT INTO brands(id, title) VALUES('3cf53f96-4c94-11ed-bdc3-0242ac120002', 'Lacoste');
+INSERT INTO brands(id, title) VALUES('3cf540d6-4c94-11ed-bdc3-0242ac120002', 'Gucci');
+INSERT INTO brands(id, title) VALUES('3cf541e4-4c94-11ed-bdc3-0242ac120002', 'Canada Goose');
+INSERT INTO brands(id, title) VALUES('3cf54572-4c94-11ed-bdc3-0242ac120002', 'Palm Angeles');
+INSERT INTO brands(id, title) VALUES('3cf546c6-4c94-11ed-bdc3-0242ac120002', 'Prada');
+INSERT INTO brands(id, title) VALUES('3cf547de-4c94-11ed-bdc3-0242ac120002', 'Versace');
+INSERT INTO brands(id, title) VALUES('3cf548f6-4c94-11ed-bdc3-0242ac120002', 'Off-White');
+INSERT INTO brands(id, title) VALUES('3cf54a18-4c94-11ed-bdc3-0242ac120002', 'Nike');

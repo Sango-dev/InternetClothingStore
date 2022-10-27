@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/orderhistorystyle.css}"/>
+</head>
+<body>
+<header>
+
+    <div class="logo_nav">
+        <div class="logo">Clothes👘</div>
+
+    </div>
+    <nav>
+        <a href="/" class="nav_item">Home</a>
+        <a href="/products" class="nav_item">Products</a>
+        <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
+        <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
+    </nav>
+
+    <a th:href="@{/bucket}" class="basket">
+        🛒
+    </a>
+
+    <div sec:authorize="!isAuthenticated()" style="color: white; padding: 0 20px ">
+        <div>
+            Hello, Unknown. Please <a style="color: white" th:href="@{/login}">Login</a>
+            or <a style="color: white" th:href="@{/users/new}">Register</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" style="color: white; padding: 0 20px">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            Hello, <a style="color: white" th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div sec:authorize="hasAuthority('CLIENT')">
+            Hello, <span sec:authentication="principal.username">Bill</span>
+        </div>
+        <div>
+            <a style="color: white" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+
+<table align="center">
+    <thead>
+    <tr>
+        <th>CREATED</th>
+        <th>RECIPIENT</th>
+        <th>PHONE</th>
+        <th>ADDRESS</th>
+        <th>SUM</th>
+        <th>STATUS</th>
+        <th>UPDATED</th>
+        <div th:if="${flag}">
+            <th>Update Status</th>
+        </div>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.created}">created</td>
+        <td th:text="${order.recipient}">recipient</td>
+        <td th:text="${order.phone}">phone</td>
+        <td th:text="${order.address}">address</td>
+        <td th:text="${order.sum   + ' ' + '$'}">sum</td>
+        <td th:text="${order.status}">status</td>
+        <td th:text="${order.updated}">updated</td>
+        <div th:if="${flag}">
+            <td>
+                <form th:object="${elect}" method="post">
+                    <select th:field="*{status}">
+                        <option th:each="statuss : ${statuses}" th:value="${statuss}"
+                                th:text="${statuss}"></option>
+                    </select>
+                    <div class="hide">
+                        <select th:field="*{id}">
+                            <option th:value="${order.id}"></option>
+                        </select>
+                    </div>
+                    <input type="submit" name="submit" th:action="@{orders/{nickname}/order-history}"
+                           th:value="Update"/>
+                </form>
+            </td>
+        </div>
+    </tr>
+
+    </tbody>
+
+</table>
+</body>
+</html>

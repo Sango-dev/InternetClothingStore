@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: 'update'
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/InternetClothingShop
+    username: postgres
+    password: rootroot
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  main:
+    allow-circular-references: true
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/productstyle.css}"/>
+</head>
+
+<body>
+<header>
+
+    <div class="logo_nav">
+        <div class="logo">Clothes👘</div>
+        <nav>
+            <a href="/" class="nav_item">Home</a>
+            <a href="/products" class="nav_item">Products</a>
+            <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
+            <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
+        </nav>
+    </div>
+
+    <form class="search_bar" th:action="@{/products/find-by-word(word)}" method="get">
+        <input type="search" placeholder="Search🔎" name="word">
+        <button type="submit">Search</button>
+    </form>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/bucket}" class="basket" style="text-decoration:none">
+            🛒
+        </a>
+    </div>
+
+    <div sec:authorize="!isAuthenticated()" style="color: white; padding: 0 20px ">
+        <div>
+            Hello, Unknown. Please <a style="color: white" th:href="@{/login}">Login</a>
+            or <a style="color: white" th:href="@{/users/new}">Register</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()" style="color: white; padding: 0 20px">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            Hello, <a style="color: white" th:href="@{/users}"><span sec:authentication="principal.username">Bill</span></a>
+        </div>
+        <div sec:authorize="hasAuthority('CLIENT')">
+            Hello, <span sec:authentication="principal.username">Bill</span>
+        </div>
+        <div>
+            <a style="color: white" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+
+<div class="main">
+    <div class="filter_block">
+        <div th:if="${pages.size() > 0}">
+            <table th:with="urlBuilder2=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                <tr>
+                    <th>Sort</th>
+                </tr>
+                <tr>
+                    <td>
+                        <a th:href="@{${urlBuilder2.replaceQueryParam('sort', 'price').toUriString()}}">Price</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{${urlBuilder2.replaceQueryParam('sort', 'title').toUriString()}}">Title</a></td>
+                </tr>
+            </table>
+        </div>
+        <table border="1">
+            <tr>
+                <th>Brand</th>
+            </tr>
+            <tr th:each="brand : ${brands}">
+                <td><a th:href="@{/products/filter-brand(id=${brand.id})}" th:text="${brand.title}">1</a></td>
+            </tr>
+        </table>
+        <table border="1">
+            <tr>
+                <th>Category</th>
+            </tr>
+            <tr th:each="category : ${categories}">
+                <td><a th:href="@{/products/filter-category(id=${category.id})}" th:text="${category.title}">1</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="product_list">
+        <div class="product_card" th:each="product : ${products}">
+
+            <div sec:authorize="hasAnyAuthority('ADMIN')" class="admin_mode">
+                <a th:href="@{/products/{id}/edit-product(id=${product.id})}" style="text-decoration:none">edit item</a>
+                <a th:href="@{/products/{id}/update-available(id=${product.id})}" style="text-decoration:none">update available</a>
+            </div>
+            <img th:src="@{${product.pictureCode}}" class="image">
+            <div th:text="${product.title}" class="title">
+                Title
+            </div>
+            <div th:text="${product.brand.title}" class="brand">
+                Gachi muchi
+            </div>
+            <div th:text="${product.description}" class="description">
+                text text text text text text text text text text text text text text
+            </div>
+            <div class="price__add_button">
+                <div th:if="${!product.available}">
+                    Product is not available
+                </div>
+
+                <div th:if="${product.available}" th:text="${product.price + ' ' + '$'}" class="price">
+                    2939 uan
+                </div>
+                <a class="bucket_button" th:href="@{/products/{id}/bucket(id=${product.id})}"
+                   th:if="${product.available}">
+                    <div>Add</div>
+                </a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('ADMIN')" class="admin_add_button">
+            <a th:href="@{/products/add}">➕</a>
+        </div>
+    </div>
+</div>
+
+<div th:if="${pages.size() > 0}" class="pages">
+    <div th:each="pageNumber:${pages}" align="center">
+        <div class="page-item"
+             th:with="urlBuilder1=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+            <a class="page-link"
+               th:href="@{${urlBuilder1.replaceQueryParam('page', __${pageNumber}__).toUriString()}}"
+               th:text="${pageNumber}+1">
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div>Сделал Саня ⓒ</div>
+    <a href="https://url to git" style="color: white; margin: 0 10px;">Git</a>
+</footer>
+</body>
+
+</html>
