@@ -4,9 +4,9 @@ spring:
       ddl-auto: 'update'
     show-sql: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/InternetClothingShop
-    username: postgres
-    password: rootroot
+    url: jdbc:postgresql://ec2-34-227-120-79.compute-1.amazonaws.com:5432/d93879igvtbfv9
+    username: wrvbatwbtaaist
+    password: c44a2f1ccf886030ee8e0ce55316c7ccbe3218f87eabe1c5ca6b967e9e38305b
   flyway:
     enabled: true
     baseline-on-migrate: true
