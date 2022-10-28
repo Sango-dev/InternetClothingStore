@@ -15,13 +15,12 @@
 
     </div>
     <nav>
-        <a href="/" class="nav_item">Home</a>
         <a href="/products" class="nav_item">Products</a>
         <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
         <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
     </nav>
 
-    <a th:href="@{/bucket}" class="basket">
+    <a th:href="@{/bucket}" class="basket" style="text-decoration: none">
         🛒
     </a>
 
@@ -46,7 +45,7 @@
 </header>
 
 <div class="box">
-    <form th:action="@{/orders/make-order}" th:object="${order}" method="post">
+    <form th:action="@{/orders/make-order}" th:object="${order}" method="post" th:if="${flag} == 'true'">
         <div style="display: none;">
             <input type="hidden" th:field="*{id}" title="id"/>
             <input type="hidden" th:field="*{sum}" title="sum"/>
@@ -61,6 +60,12 @@
         <input type="tel" th:field="*{phone}" placeholder="Phone" required="true" pattern="[0]{1}[0-9]{9}"/>
 
         <button type="submit">Ok</button>
+    </form>
+
+    <form th:if="${flag} == 'false'">
+        <input type="text" th:value="${order.recipient}" placeholder="Recipient" readonly/>
+        <input type="text" th:value="${order.address}" placeholder="Address" readonly/>
+        <input type="text" th:value="${order.phone}" placeholder="Phone" readonly/>
     </form>
 
     <table class="order">

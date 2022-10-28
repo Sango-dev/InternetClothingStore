@@ -13,7 +13,6 @@
 
     </div>
     <nav>
-        <a href="/" class="nav_item">Home</a>
         <a href="/products" class="nav_item">Products</a>
         <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
         <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
@@ -76,9 +75,9 @@
     </tfoot>
 </table>
 
-<form th:action="@{/bucket}" method="post">
+<form th:action="@{/bucket}" method="post" th:if="${!bucket.bucketDetails.isEmpty()}">
     <button type="submit" name="clear">Clear Bucket</button>
-    <button type="submit" name="submit" th:if="${!bucket.bucketDetails.isEmpty()}">Create Order</button>
+    <button type="submit" name="submit">Create Order</button>
 </form>
 </body>
 </html>

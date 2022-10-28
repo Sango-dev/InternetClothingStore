@@ -13,13 +13,12 @@
 
     </div>
     <nav>
-        <a href="/" class="nav_item">Home</a>
         <a href="/products" class="nav_item">Products</a>
         <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
         <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
     </nav>
 
-    <a th:href="@{/bucket}" class="basket">
+    <a th:href="@{/bucket}" class="basket" style="text-decoration: none">
         🛒
     </a>
 
@@ -53,6 +52,7 @@
         <th>SUM</th>
         <th>STATUS</th>
         <th>UPDATED</th>
+        <th>ORDER DETAILS</th>
         <div th:if="${flag}">
             <th>Update Status</th>
         </div>
@@ -69,6 +69,7 @@
         <td th:text="${order.sum   + ' ' + '$'}">sum</td>
         <td th:text="${order.status}">status</td>
         <td th:text="${order.updated}">updated</td>
+        <td><button><a th:href="@{/orders/{id}/order-information(id=${order.id})}" style="text-decoration: none">VISIT</a></button></td>
         <div th:if="${flag}">
             <td>
                 <form th:object="${elect}" method="post">

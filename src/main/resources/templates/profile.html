@@ -19,13 +19,12 @@
 
     </div>
     <nav>
-        <a href="/" class="nav_item">Home</a>
         <a href="/products" class="nav_item">Products</a>
         <a sec:authorize="isAuthenticated()" href="/orders/order-history" class="nav_item">My Orders</a>
         <a sec:authorize="isAuthenticated()" href="/users/profile" class="nav_item">Profile</a>
     </nav>
 
-    <a th:href="@{/bucket}" class="basket">
+    <a th:href="@{/bucket}" class="basket" style="text-decoration: none">
         🛒
     </a>
 

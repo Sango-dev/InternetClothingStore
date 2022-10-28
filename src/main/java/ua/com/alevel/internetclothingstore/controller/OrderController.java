@@ -32,6 +32,17 @@ public class OrderController {
     public String getRecipientData(@PathVariable String id, Model model) {
         OrderDTO orderDTO = orderService.getOrderById(id);
         model.addAttribute("order", orderDTO);
+        model.addAttribute("flag", "true");
+        return "orderDetails";
+    }
+
+    //TODO DONE
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{id}/order-information")
+    public String showOrderByID(@PathVariable String id, Model model) {
+        OrderDTO orderDTO = orderService.getOrderById(id);
+        model.addAttribute("order", orderDTO);
+        model.addAttribute("flag", "false");
         return "orderDetails";
     }
 
