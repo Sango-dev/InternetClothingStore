@@ -75,7 +75,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
-    public String ListOfUsers(Model model) {
+    public String listOfUsers(Model model) {
         model.addAttribute("users", userService.getAll());
         return "userList";
     }

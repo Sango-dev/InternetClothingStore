@@ -15,15 +15,12 @@ import ua.com.alevel.internetclothingstore.model.User;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-//TODO DONE
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper mapper = UserMapper.MAPPER;
-
-    private final UserDao userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserDao userRepository;
 
     public UserServiceImpl(UserDao userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;

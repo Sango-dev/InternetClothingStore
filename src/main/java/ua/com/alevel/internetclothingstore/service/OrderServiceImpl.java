@@ -3,17 +3,15 @@ package ua.com.alevel.internetclothingstore.service;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.internetclothingstore.dao.OrderDao;
 import ua.com.alevel.internetclothingstore.dto.OrderDTO;
-import ua.com.alevel.internetclothingstore.mapper.OrderDetailMapper;
 import ua.com.alevel.internetclothingstore.mapper.OrderMapper;
 import ua.com.alevel.internetclothingstore.model.Order;
 
 import javax.transaction.Transactional;
 import java.util.List;
-//TODO DONE
+
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper = OrderMapper.MAPPER;
-    private final OrderDetailMapper orderDetailMapper = OrderDetailMapper.MAPPER;
     private final OrderDao orderRepository;
     private final UserService userService;
 
@@ -40,7 +38,6 @@ public class OrderServiceImpl implements OrderService{
     @Override
     @Transactional
     public Order saveOrderFromDto(OrderDTO orderDto) {
-        Order order = orderMapper.toOrder(orderDto);
         return orderRepository.save(orderMapper.toOrder(orderDto));
     }
 

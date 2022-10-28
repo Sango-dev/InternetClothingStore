@@ -8,10 +8,16 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
     User findFirstByNickName(String name);
+
     boolean save(UserDTO userDTO);
+
     void save(User user);
+
     List<UserDTO> getAll();
+
     void deleteUserById(String id);
+
     UserDTO getByNickName(String name);
+
     void updatePassword(UserDTO userDTO);
 }

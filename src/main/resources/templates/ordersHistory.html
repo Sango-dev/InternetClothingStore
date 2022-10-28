@@ -69,7 +69,10 @@
         <td th:text="${order.sum   + ' ' + '$'}">sum</td>
         <td th:text="${order.status}">status</td>
         <td th:text="${order.updated}">updated</td>
-        <td><button><a th:href="@{/orders/{id}/order-information(id=${order.id})}" style="text-decoration: none">VISIT</a></button></td>
+        <td>
+            <button><a th:href="@{/orders/{id}/order-information(id=${order.id})}"
+                       style="text-decoration: none">VISIT</a></button>
+        </td>
         <div th:if="${flag}">
             <td>
                 <form th:object="${elect}" method="post">

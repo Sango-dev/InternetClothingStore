@@ -26,7 +26,6 @@ public class BucketServiceImpl implements BucketService {
         this.orderService = orderService;
     }
 
-    //TODO DONE
     @Transactional
     @Override
     public Bucket createBucket(User user, List<String> productIds) {
@@ -37,14 +36,12 @@ public class BucketServiceImpl implements BucketService {
         return bucketRepository.save(bucket);
     }
 
-    //TODO DONE
     private List<Product> getCollectRefProductsByIds(List<String> productIds) {
         return productIds.stream()
                 .map(productRepository::getOne)
                 .collect(Collectors.toList());
     }
 
-    //TODO DONE
     @Override
     public void addProducts(Bucket bucket, List<String> productIds) {
         List<Product> products = bucket.getProducts();
@@ -54,7 +51,6 @@ public class BucketServiceImpl implements BucketService {
         bucketRepository.save(bucket);
     }
 
-    //TODO DONE
     @Override
     public BucketDTO getBucketByUser(String name) {
         User user = userService.findFirstByNickName(name);
@@ -82,7 +78,6 @@ public class BucketServiceImpl implements BucketService {
         return bucketDTO;
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public void deleteProductFromBucket(String name, String productId) {
@@ -106,13 +101,11 @@ public class BucketServiceImpl implements BucketService {
 
         if (number != -1) {
             products.remove(number);
-        }
-        else {
+        } else {
             throw new RuntimeException("This bucket does not contain product with id: '" + productId + "'");
         }
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public void clearBucket(String name) {
@@ -123,7 +116,6 @@ public class BucketServiceImpl implements BucketService {
         user.getBucket().getProducts().clear();
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public String makeOrder(String name) {
@@ -132,7 +124,6 @@ public class BucketServiceImpl implements BucketService {
         Order order = new Order();
         order.setStatus(OrderStatus.NEW);
         order.setUser(user);
-
 
         BucketDTO bucketDTO = getBucketByUser(name);
         List<OrderDetails> orderDetails = bucketDTO.getBucketDetails()

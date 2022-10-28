@@ -8,13 +8,22 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductDTO> findAll(Pageable pageable);
+
     void addToUserBucket(String productId, String nickName);
+
     Page getPage();
+
     List<ProductDTO> findAllByBrandId(String id);
+
     List<ProductDTO> findAllByCategoryId(String id);
+
     List<ProductDTO> findAllByWord(String word);
+
     ProductDTO findById(String id);
+
     void updateProduct(String prodId, ProductDTO productDTO);
+
     void addProduct(ProductDTO dto);
+
     void updateStateOfAvailability(String id);
 }

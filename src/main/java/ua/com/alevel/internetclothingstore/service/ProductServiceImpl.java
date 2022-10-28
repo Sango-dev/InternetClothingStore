@@ -3,7 +3,6 @@ package ua.com.alevel.internetclothingstore.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ua.com.alevel.internetclothingstore.dao.BucketDao;
 import ua.com.alevel.internetclothingstore.dao.ProductDao;
 import ua.com.alevel.internetclothingstore.dto.ProductDTO;
 import ua.com.alevel.internetclothingstore.mapper.ProductMapper;
@@ -18,11 +17,11 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     private final ProductMapper mapper = ProductMapper.MAPPER;
+    private static Page page;
     private final ProductDao productRepository;
     private final UserService userService;
-    private static Page page;
     private final BucketService bucketService;
 
     public ProductServiceImpl(ProductDao productRepository, UserService userService, BucketService bucketService) {
@@ -31,13 +30,11 @@ public class ProductServiceImpl implements ProductService{
         this.bucketService = bucketService;
     }
 
-    //TODO DONE
     @Override
-    public Page getPage(){
+    public Page getPage() {
         return page;
     }
 
-    //TODO DONE
     @Override
     public List<ProductDTO> findAll(Pageable pageable) {
         Page<Product> productPage = productRepository.findAll(pageable);
@@ -46,7 +43,6 @@ public class ProductServiceImpl implements ProductService{
         return mapper.fromProductList(listOfProducts);
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public void addToUserBucket(String productId, String nickName) {
@@ -65,25 +61,21 @@ public class ProductServiceImpl implements ProductService{
         }
     }
 
-    //TODO DONE
     @Override
     public List<ProductDTO> findAllByBrandId(String id) {
         return mapper.fromProductList(productRepository.findAllByBrandId(id));
     }
 
-    //TODO DONE
     @Override
     public List<ProductDTO> findAllByCategoryId(String id) {
         return mapper.fromProductList(productRepository.findAllByCategoryId(id));
     }
 
-    //TODO DONE
     @Override
     public List<ProductDTO> findAllByWord(String word) {
         return mapper.fromProductList(productRepository.findAllByWord(word.toLowerCase()));
     }
 
-    //TODO DONE
     @Override
     public ProductDTO findById(String id) {
         if (id == null) {
@@ -97,7 +89,6 @@ public class ProductServiceImpl implements ProductService{
         }
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public void updateProduct(String prodId, ProductDTO productDTO) {
@@ -105,11 +96,13 @@ public class ProductServiceImpl implements ProductService{
         if (product == null) {
             throw new RuntimeException("Product is not found with ID : " + prodId);
         }
+
         final boolean availability = product.getAvailable();
         final String code = product.getCode();
         product = mapper.toProduct(productDTO);
         product.setAvailable(availability);
         product.setCode(code);
+
         if (product.getTitle().isBlank()) {
             product.setTitle("none");
         }
@@ -122,16 +115,17 @@ public class ProductServiceImpl implements ProductService{
         if (product.getPrice() == null) {
             product.setPrice(0.0);
         }
+
         productRepository.save(product);
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public void addProduct(ProductDTO dto) {
         Product product = mapper.toProduct(dto);
         product.setAvailable(true);
         product.setCode(product.getTitle() + new Random().nextInt(100000));
+
         if (product.getTitle().isBlank()) {
             product.setTitle("none");
         }
@@ -144,10 +138,10 @@ public class ProductServiceImpl implements ProductService{
         if (product.getPrice() == null) {
             product.setPrice(0.0);
         }
+
         productRepository.save(product);
     }
 
-    //TODO DONE
     @Override
     @Transactional
     public void updateStateOfAvailability(String id) {

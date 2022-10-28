@@ -4,6 +4,6 @@ import ua.com.alevel.internetclothingstore.dto.BrandDTO;
 
 import java.util.List;
 
-public interface BrandService{
+public interface BrandService {
     List<BrandDTO> findAll();
 }

@@ -5,7 +5,7 @@
         xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Edit product</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/editproductstyle.css}"/>
 </head>
@@ -49,7 +49,7 @@
 <div class="container">
     <div class="product_form">
         <form th:object="${product}" method="post">
-            <input type="text" th:field="*{title}" required="true" placeholder="Title" autofocus />
+            <input type="text" th:field="*{title}" required="true" placeholder="Title" autofocus/>
             <input
                     type="text"
                     th:field="*{description}"
@@ -62,7 +62,7 @@
                     required="true"
                     placeholder="IMG URL"
             />
-            <input type="text" th:field="*{price}" required="true" placeholder="Price" />
+            <input type="text" th:field="*{price}" required="true" placeholder="Price"/>
 
             <select th:field="*{category.id}">
                 <option

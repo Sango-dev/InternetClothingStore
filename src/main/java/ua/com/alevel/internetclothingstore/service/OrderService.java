@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface OrderService {
     String saveOrder(Order order);
+
     OrderDTO getOrderById(String id);
+
     Order findOrderById(String id);
+
     Order saveOrderFromDto(OrderDTO orderDto);
+
     List<OrderDTO> getOrdersByNickName(String nickName);
 }

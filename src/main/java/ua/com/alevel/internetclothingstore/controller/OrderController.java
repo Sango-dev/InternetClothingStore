@@ -11,7 +11,6 @@ import ua.com.alevel.internetclothingstore.dto.OrderStatusDTO;
 import ua.com.alevel.internetclothingstore.model.Order;
 import ua.com.alevel.internetclothingstore.model.OrderStatus;
 import ua.com.alevel.internetclothingstore.service.OrderService;
-import ua.com.alevel.internetclothingstore.service.UserService;
 
 import java.security.Principal;
 
@@ -22,11 +21,9 @@ import java.util.List;
 public class OrderController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
     private final OrderService orderService;
-    private final UserService userService;
 
-    public OrderController(OrderService orderService, UserService userService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.userService = userService;
     }
 
     @PreAuthorize("isAuthenticated()")

@@ -80,7 +80,7 @@
         </thead>
         <tbody>
         <tr th:each="detail : ${order.details}">
-            <td> <img th:src="@{${detail.product.pictureCode}}"></td>
+            <td><img th:src="@{${detail.product.pictureCode}}"></td>
             <td th:text="${detail.product.title}">Cap</td>
             <td th:text="${detail.product.description}">good cap</td>
             <td th:text="${detail.amount}">2</td>

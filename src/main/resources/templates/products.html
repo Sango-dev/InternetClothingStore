@@ -90,14 +90,15 @@
 
             <div sec:authorize="hasAnyAuthority('ADMIN')" class="admin_mode">
                 <a th:href="@{/products/{id}/edit-product(id=${product.id})}" style="text-decoration:none">edit item</a>
-                <a th:href="@{/products/{id}/update-available(id=${product.id})}" style="text-decoration:none">update available</a>
+                <a th:href="@{/products/{id}/update-available(id=${product.id})}" style="text-decoration:none">update
+                    available</a>
             </div>
             <img th:src="@{${product.pictureCode}}" class="image">
             <div th:text="${product.title}" class="title">
                 Title
             </div>
             <div th:text="${product.brand.title}" class="brand">
-                Gachi muchi
+                text text
             </div>
             <div th:text="${product.description}" class="description">
                 text text text text text text text text text text text text text text
@@ -108,7 +109,7 @@
                 </div>
 
                 <div th:if="${product.available}" th:text="${product.price + ' ' + '$'}" class="price">
-                    2939 uan
+                    2939 $
                 </div>
                 <a class="bucket_button" th:href="@{/products/{id}/bucket(id=${product.id})}"
                    th:if="${product.available}">

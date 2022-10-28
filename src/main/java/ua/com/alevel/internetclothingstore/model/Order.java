@@ -39,5 +39,4 @@ public class Order {
     private List<OrderDetails> details;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
 }
