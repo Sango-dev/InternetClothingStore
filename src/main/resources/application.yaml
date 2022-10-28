@@ -10,7 +10,5 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-  main:
-    allow-circular-references: true
 
 

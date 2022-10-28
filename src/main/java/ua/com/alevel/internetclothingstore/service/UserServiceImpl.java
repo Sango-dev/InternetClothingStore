@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.internetclothingstore.dao.UserDao;
@@ -18,13 +19,12 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
     private final UserMapper mapper = UserMapper.MAPPER;
-    private final PasswordEncoder passwordEncoder;
     private final UserDao userRepository;
 
-    public UserServiceImpl(UserDao userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserDao userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean save(UserDTO userDTO) {
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setPassword(PASSWORD_ENCODER.encode(userDTO.getPassword()));
         userDTO.setRole(Role.CLIENT);
         userRepository.save(mapper.toUser(userDTO));
         return true;
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updatePassword(UserDTO userDTO) {
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setPassword(PASSWORD_ENCODER.encode(userDTO.getPassword()));
         userRepository.save(mapper.toUser(userDTO));
     }
 }
