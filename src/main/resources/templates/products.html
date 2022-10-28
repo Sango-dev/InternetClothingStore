@@ -112,7 +112,7 @@
                     2939 $
                 </div>
                 <a class="bucket_button" th:href="@{/products/{id}/bucket(id=${product.id})}"
-                   th:if="${product.available}">
+                   th:if="${product.available}" sec:authorize="isAuthenticated()">
                     <div>Add</div>
                 </a>
             </div>
