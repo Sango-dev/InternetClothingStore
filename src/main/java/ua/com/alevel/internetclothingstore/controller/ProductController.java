@@ -1,5 +1,7 @@
 package ua.com.alevel.internetclothingstore.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -22,6 +24,7 @@ import java.util.stream.IntStream;
 @Controller
 @RequestMapping("/products")
 public class ProductController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
     private final CategoryService categoryService;
     private final BrandService brandService;
@@ -32,7 +35,6 @@ public class ProductController {
         this.brandService = brandService;
     }
 
-    //TODO DONE
     @GetMapping
     public String list(Model model, @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 10) Pageable pageable) {
         model.addAttribute("products", productService.findAll(pageable));
@@ -45,7 +47,6 @@ public class ProductController {
         return "products";
     }
 
-    //TODO DONE
     @RequestMapping("/filter-brand")
     public String filterBrand(Model model, @RequestParam("id") String id) {
         model.addAttribute("products", productService.findAllByBrandId(id));
@@ -55,7 +56,6 @@ public class ProductController {
         return "products";
     }
 
-    //TODO DONE
     @RequestMapping("/filter-category")
     public String filterCategory(Model model, @RequestParam("id") String id) {
         model.addAttribute("products", productService.findAllByCategoryId(id));
@@ -65,7 +65,6 @@ public class ProductController {
         return "products";
     }
 
-    //TODO DONE
     @RequestMapping("/find-by-word")
     public String search(Model model, @RequestParam("word") String word) {
         if (word.isBlank()) {
@@ -79,7 +78,6 @@ public class ProductController {
         return "products";
     }
 
-    //TODO DONE
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/bucket")
     public String addBucket(@PathVariable String id, Principal principal) {
@@ -87,7 +85,6 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}/edit-product")
     public String editProd(Model model, @PathVariable("id") String prodId) {
@@ -102,29 +99,27 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    //TODO DONE
-    //TODO LOGGING
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/{id}/edit-product", params = "submit")
     public String editProd(@PathVariable("id") String prodId, @ModelAttribute("product") ProductDTO productDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            LOGGER.error("There is some problem during editing product with id {} : {}", prodId, bindingResult.getFieldError());
             model.addAttribute("method", "edit-product");
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("brands", brandService.findAll());
             return "productEdit";
         }
         productService.updateProduct(prodId, productDTO);
+        LOGGER.info("Product with id {} has been successfully updated", prodId);
         return "redirect:/products";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/{id}/edit-product", params = "cancellation")
     public String cancelEditingProd(@PathVariable("id") String prodId) {
         return "redirect:/products";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add")
     public String addProduct(Model model) {
@@ -135,33 +130,32 @@ public class ProductController {
         return "productEdit";
     }
 
-    //TODO DONE
-    //TODO LOGGING
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/add", params = "submit")
     public String addProduct(@ModelAttribute("product") ProductDTO productDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            LOGGER.error("There is some problem during adding product: {}", bindingResult.getFieldError());
             model.addAttribute("method", "add-product");
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("brands", brandService.findAll());
             return "productEdit";
         }
         productService.addProduct(productDTO);
+        LOGGER.info("New {} product has been added successfully", productDTO.getTitle());
         return "redirect:/products";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/add", params = "cancellation")
     public String cancelAddingProd() {
         return "redirect:/products";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}/update-available")
     public String updateStateOfAvailability(@PathVariable String id, Principal principal) {
         productService.updateStateOfAvailability(id);
+        LOGGER.info("State of product with id {} has been successfully changed", id);
         return "redirect:/products";
     }
 }

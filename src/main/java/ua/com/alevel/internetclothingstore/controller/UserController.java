@@ -1,5 +1,7 @@
 package ua.com.alevel.internetclothingstore.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,10 +13,10 @@ import ua.com.alevel.internetclothingstore.service.UserService;
 
 import java.security.Principal;
 
-//TODO DONE
 @Controller
 @RequestMapping("/users")
 public class UserController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -27,7 +29,6 @@ public class UserController {
         return "reg";
     }
 
-    //TODO LOGGING
     @PostMapping("/new")
     public String addNewUser(UserDTO user, Model model) {
         String page = "reg";
@@ -54,6 +55,7 @@ public class UserController {
         }
 
         userService.save(user);
+        LOGGER.info("User {} has been successfully saved", user.getNickName());
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
@@ -78,11 +80,11 @@ public class UserController {
         return "userList";
     }
 
-    //TODO LOGGING
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}/delete")
     public String deleteUser(@PathVariable String id) {
         userService.deleteUserById(id);
+        LOGGER.info("There is an attempt to delete user with id {}", id);
         return "redirect:/users";
     }
 
@@ -94,7 +96,6 @@ public class UserController {
         return "profile";
     }
 
-    //TODO LOGGING
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/profile")
     public String updatePassword(@ModelAttribute("user") UserDTO userDTO, Principal principal, Model model) {
@@ -106,6 +107,7 @@ public class UserController {
             return incorrectInputData(userDTO, model, "Passwords are not matching!!!", page);
         }
         userService.updatePassword(userDTO);
+        LOGGER.info("Password updation has been successfully done, User {}", userDTO.getNickName());
         return "redirect:/users/profile";
     }
 }

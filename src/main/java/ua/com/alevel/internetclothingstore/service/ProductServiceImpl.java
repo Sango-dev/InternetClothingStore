@@ -119,6 +119,9 @@ public class ProductServiceImpl implements ProductService{
         if (product.getPictureCode().isBlank()) {
             product.setPictureCode("/images/products/prodisout.png");
         }
+        if (product.getPrice() == null) {
+            product.setPrice(0.0);
+        }
         productRepository.save(product);
     }
 
@@ -137,6 +140,9 @@ public class ProductServiceImpl implements ProductService{
         }
         if (product.getPictureCode().isBlank()) {
             product.setPictureCode("/images/products/prodisout.png");
+        }
+        if (product.getPrice() == null) {
+            product.setPrice(0.0);
         }
         productRepository.save(product);
     }

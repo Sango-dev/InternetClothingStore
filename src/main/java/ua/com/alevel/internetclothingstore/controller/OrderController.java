@@ -1,5 +1,7 @@
 package ua.com.alevel.internetclothingstore.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
     private final OrderService orderService;
     private final UserService userService;
 
@@ -26,7 +29,6 @@ public class OrderController {
         this.userService = userService;
     }
 
-    //TODO DONE
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/order-details")
     public String getRecipientData(@PathVariable String id, Model model) {
@@ -36,7 +38,6 @@ public class OrderController {
         return "orderDetails";
     }
 
-    //TODO DONE
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/order-information")
     public String showOrderByID(@PathVariable String id, Model model) {
@@ -46,22 +47,20 @@ public class OrderController {
         return "orderDetails";
     }
 
-    //TODO DONE
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/make-order")
     public String setData(OrderDTO orderDTO) {
         orderService.saveOrderFromDto(orderDTO);
+        LOGGER.info("Recipient's data has been successfully saved for order with id {}", orderDTO.getId());
         return "redirect:/orders/success-order";
     }
 
-    //TODO DONE
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/success-order")
     public String successOrder() {
         return "successOrder";
     }
 
-    //TODO DONE
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/order-history")
     public String getOrderHistoryByUserId(Principal principal, Model model) {
@@ -70,7 +69,6 @@ public class OrderController {
         return "ordersHistory";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{nickname}/order-history")
     public String getOrderHistoryByUserId(@PathVariable String nickname, Model model) {
@@ -82,13 +80,13 @@ public class OrderController {
         return "ordersHistory";
     }
 
-    //TODO DONE
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/{nickname}/order-history", params = "submit")
     public String updateStatus(@PathVariable String nickname, @ModelAttribute("elect") OrderStatusDTO dto) {
         Order order = orderService.findOrderById(dto.getId());
         order.setStatus(dto.getStatus());
         orderService.saveOrder(order);
+        LOGGER.info("Order status for {} order with id {} has been successfully updated", nickname, dto.getId());
         return "redirect:/orders/{nickname}/order-history";
     }
 }
